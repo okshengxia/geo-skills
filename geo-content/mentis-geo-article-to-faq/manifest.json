@@ -1,0 +1,15 @@
+{
+  "name": "mentis-geo-writer",
+  "description": "Write GEO-optimized content (FAQs, articles, guides) that rank in AI search engines",
+  "version": "2.0.0",
+  "display_name": "Mentis GEO Writer",
+  "short_description": "Write GEO-optimized content ranked by AI search engines",
+  "canonical_metadata": "agents/interface.yaml",
+  "canonical_format": "agent-skills",
+  "activation_mode": "manual",
+  "execution_context": "inline",
+  "shell": "bash",
+  "trust_level": "local",
+  "mode": "Production",
+  "author": "Martin"
+}

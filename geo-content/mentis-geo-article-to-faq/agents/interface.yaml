@@ -1,0 +1,22 @@
+interface:
+  display_name: "Mentis GEO Writer"
+  short_description: "Write GEO-optimized content ranked by AI search engines"
+  default_prompt: "Use $mentis-geo-writer to write a GEO-optimized article about [topic] with FAQ structure and citation-friendly formatting."
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets:
+    - "claude"
+    - "generic"
+  activation:
+    mode: "manual"
+    paths: []
+  execution:
+    context: "inline"
+    shell: "bash"
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    remote_metadata_policy: "allow-metadata-only"
+  degradation:
+    claude: "neutral-source-plus-adapter"
+    generic: "neutral-source"
