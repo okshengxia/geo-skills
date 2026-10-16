@@ -1,0 +1,88 @@
+{
+  "evals": [
+    {
+      "id": "audit-basic",
+      "name": "基本-品牌全景审计",
+      "prompt": "帮我完整审计亿康先达高管寻访在 AI 平台上的表现",
+      "should_trigger": true,
+      "assertions": [
+        "应触发 mentis-paranoma-audit-cn skill",
+        "应提取 brandName=亿康先达，productType=高管寻访",
+        "应执行阶段0-4 全流水线（不存在 quick/full 二选一）",
+        "应先在 <工作目录>/亿康先达/ 建目录，产物为 亿康先达/亿康先达全景审计报告.html",
+        "合并产物应含 13 个 stageCode，无 mode 字段"
+      ]
+    },
+    {
+      "id": "audit-brand-only",
+      "name": "只给品牌名",
+      "prompt": "审计一下亿康先达",
+      "should_trigger": true,
+      "assertions": [
+        "应触发 mentis-paranoma-audit-cn skill",
+        "productType 缺失可继续，由 ENTITY_MAP.entityType 兜底，不得因缺 productType 而中止",
+        "不得反问 quick/full 模式（本 skill 只有完整模式）",
+        "输出目录名应为品牌名"
+      ]
+    },
+    {
+      "id": "audit-evidence-discipline",
+      "name": "证据纪律-禁止推断填充",
+      "prompt": "审计一下某个我搜不到资料的小众品牌",
+      "should_trigger": true,
+      "assertions": [
+        "报告中不得出现『AI 提及率 XX%』这类未经实测的数字",
+        "每条断言应带 url + date；取不到证据的条目应进待确认项或标注未获取",
+        "四维评分中无证据支撑的维度应记 null 并写明原因，不得填推断分",
+        "页脚应声明『未实测各 AI 平台实时输出』"
+      ]
+    },
+    {
+      "id": "audit-chapter-structure",
+      "name": "章节结构-四幕12章",
+      "prompt": "出一份完整的品牌审计报告",
+      "should_trigger": true,
+      "assertions": [
+        "报告应为四幕 12 章：01 诊断总览 / 02 实体身份诊断 / 03 站外资产矩阵 / 04 问题池与信源缺口 / 05 用户画像 / 06 AI 可引用内容覆盖 / 07 基建评估 / 08 竞品对标 / 09 舆情分析 / 10 信源收录证据 / 11 差距归因 / 12 行动路线图",
+        "评分只在 01 章出现一次（hero 环与 01 章同源），不得出现第二套评分",
+        "第 11 章每条差距应带 relatedStageCodes 溯源到 02-10 的来源章节",
+        "对外文案不得出现 AIVO 或「AI 可见性 / AI 搜索可见度」字样",
+        "侧边导航应为四幕分组（结论/身份/资产/表现/行动）"
+      ]
+    },
+    {
+      "id": "audit-mentis-excel",
+      "name": "Mentis Excel 真实数据",
+      "prompt": "用 Mentis 导出的数据做一份完整的品牌审计报告，数据在 /path/to/A2报告",
+      "should_trigger": true,
+      "assertions": [
+        "应先跑 parse-mentis-xlsx.py 产出 stage2.json(真实)/stage_product.json/mentis-meta.json",
+        "阶段2 禁止虚拟推演，agent 不得重写 stage2.json",
+        "合并 JSON 应含 PRODUCT_VISIBILITY stageCode 与 mentisMeta 字段（供审计，不单独成章）",
+        "AI 可引用内容覆盖维度应取 mentis-meta.json.suggestedVisibilityScore 并附来源说明"
+      ]
+    },
+    {
+      "id": "audit-dual-format-md",
+      "name": "双格式输出-HTML 与 Markdown 同时产出",
+      "prompt": "审计一下亿康先达，报告除了 HTML，再给我一份 Markdown 版",
+      "should_trigger": true,
+      "assertions": [
+        "应同时产出两份报告：<品牌>全景审计报告.html 与 <品牌>全景审计报告.md",
+        "Markdown 版应含四幕 12 章，章节与 HTML 版一致（01 诊断总览 … 12 行动路线图）",
+        "Markdown 版每条证据应同样带 URL 与日期，并保留『未实测各 AI 平台实时输出』等边界声明",
+        "Markdown 版不得出现「AI 提及率 XX%」类未经实测的数字，也不得新增 HTML 版之外的推断内容"
+      ]
+    },
+    {
+      "id": "audit-no-trigger-industry-research",
+      "name": "不应触发-行业深度调研",
+      "prompt": "帮我做猎头行业 2026 深度调研报告",
+      "should_trigger": false,
+      "assertions": [
+        "不应触发 mentis-paranoma-audit-cn skill",
+        "用户需要的是行业调研而非单品牌审计"
+      ]
+    }
+  ]
+}
