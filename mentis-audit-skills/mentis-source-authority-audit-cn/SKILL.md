@@ -1,5 +1,5 @@
 ---
-name: "geo-source-authority-check"
+name: "mentis-source-authority-audit-cn"
 description: "GEO信源权威检查专家，提供信源诊断、EEAT优化、多平台差异化策略、内容证据化改造、专家IP建设等能力。默认输出为MD文件。当用户提及信源权威、信源建设、权威建设、EEAT优化、AI信源、信源诊断、权威性评估、被AI引用、GEO权威建设、品牌权威性等需求时触发。"
 ---
 
